@@ -15,7 +15,6 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-// Add this line below it:
 Route::post('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
 
 // Your custom routes

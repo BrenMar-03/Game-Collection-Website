@@ -47,6 +47,6 @@ class AuthenticatedSessionController extends Controller
 
     protected function redirectTo()
     {
-        return '/welcome';
+        return '/games';
     }
 }
