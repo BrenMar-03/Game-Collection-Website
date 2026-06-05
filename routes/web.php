@@ -65,3 +65,7 @@ Route::middleware(['auth'])->group(function () {
         ->except(['show']); // No show/detail page needed per design
  
 });
+
+Route::get('/', function () {
+    return redirect()->route('login');
+});
