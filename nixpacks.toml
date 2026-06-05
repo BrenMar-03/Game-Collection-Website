@@ -11,4 +11,4 @@ cmds = [
 ]
 
 [start]
-cmd = "php artisan migrate --force && php artisan storage:link && php artisan route:clear && php -S 0.0.0.0:$PORT -t public"
+cmd = "php artisan migrate --force && php artisan storage:link && php artisan route:clear && php artisan serve --host=0.0.0.0 --port=$PORT"
