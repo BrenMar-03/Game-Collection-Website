@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GamingLogController;
+use App\Http\Controllers\UsersController;
 
 // Use Laravel's built-in auth routes
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -55,4 +56,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth'])->group(function () {
+ 
+    // Users CRUD — accessible at /users
+    Route::resource('users', UsersController::class)
+        ->except(['show']); // No show/detail page needed per design
+ 
 });

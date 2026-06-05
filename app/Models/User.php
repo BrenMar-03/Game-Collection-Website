@@ -2,32 +2,27 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var list<string>
      */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        'profile_photo',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
      */
     protected $hidden = [
         'password',
@@ -35,20 +30,40 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * The attributes that should be cast.
      */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
-    public function gamingLogs()
+    /**
+     * Get the user's profile photo URL.
+     */
+    public function getProfilePhotoUrlAttribute(): string
     {
-        return $this->hasMany(GamingLog::class);
+        if ($this->profile_photo) {
+            return asset('storage/' . $this->profile_photo);
+        }
+
+        // Generate initials-based avatar fallback
+        $initials = collect(explode(' ', $this->name))
+            ->map(fn($word) => strtoupper($word[0]))
+            ->take(2)
+            ->implode('');
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name)
+            . '&background=e53935&color=fff&bold=true&size=128';
+    }
+
+    /**
+     * Check if user is an admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
     }
 }
