@@ -35,7 +35,7 @@ Route::get('/emulators', function () {
 });
 
 Route::get('/dashboard', function () {
-    return redirect('/welcome');
+    return redirect('/dashboard');
 })->middleware('auth');
 
 Route::get('/profile', function () {
