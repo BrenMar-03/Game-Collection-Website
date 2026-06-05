@@ -73,7 +73,7 @@
             <div class="module-card h-100 shadow-sm">              
                 <div class="module-header" style="background-color: #e60012;">NINTENDO</div>
                 <div class="module-img">
-    <img src="Games/ConsoleImg/Console1.jpg" style="height: 110px; width: auto; object-fit: contain;" alt="Switch">
+    <img src="/Console1.jpg" style="height: 110px; width: auto; object-fit: contain;" alt="Switch">
 </div>
                 <div class="p-3"><h6 class="fw-bold mb-1">Switch</h6>
                 <small class="text-muted d-block mb-2">$299 | Mario, Zelda</small>
